@@ -8,9 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    /* ====================================================
-       🎨 CORES — mude os valores pra personalizar o tema
-    ==================================================== */
     :root {
       --bg:      #08061A;
       --bg-card: #16112E;
@@ -25,7 +22,6 @@
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-    /* ── CANVAS ESTRELAS (fundo animado) ── */
     #starsCanvas {
       position: fixed; inset: 0; width: 100%; height: 100%;
       z-index: 0; pointer-events: none;
@@ -90,16 +86,13 @@
     #main { position: relative; z-index: 1; opacity: 0; transition: opacity 1s ease; }
     #main.on { opacity: 1; }
 
-    /* Wrappers de seção */
     .wrap { padding: clamp(70px,9vw,130px) clamp(24px,6vw,80px); max-width: 1080px; margin: 0 auto; }
     .wrap-center { padding: clamp(80px,10vw,140px) clamp(28px,8vw,120px); text-align: center; max-width: 100%; }
 
-    /* Scroll reveal */
     .r { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
     .r.in { opacity: 1; transform: none; }
     .d1{transition-delay:.12s} .d2{transition-delay:.22s} .d3{transition-delay:.34s} .d4{transition-delay:.46s}
 
-    /* Labels de seção */
     .eyebrow { font-family: 'Dancing Script', cursive; font-size: 1.15rem; color: var(--rose); display: block; margin-bottom: 6px; }
     .section-title { font-family: 'Playfair Display', serif; font-size: clamp(2rem,5vw,3rem); font-weight: 700; line-height: 1.15; margin-bottom: 44px; }
 
@@ -122,6 +115,14 @@
     .cnt { background: var(--bg-card); border: 1px solid rgba(232,57,107,.22); border-radius: 14px; padding: 16px 26px; text-align: center; min-width: 88px; }
     .cnt-n { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; color: var(--rose); display: block; }
     .cnt-l { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .15em; margin-top: 2px; }
+
+    /* Separador visual entre grupos do contador */
+    .cnt-sep {
+      display: flex; align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; color: rgba(232,57,107,.35);
+      padding-bottom: 6px; user-select: none;
+    }
 
     /* ==================================================
        TIMELINE
@@ -201,12 +202,8 @@
     .f-title { font-family:'Playfair Display',serif; font-size:clamp(1.7rem,5vw,2.8rem); font-weight:700; line-height:1.2; margin-bottom:12px; }
     .f-sub { font-size:.87rem; color:var(--muted); letter-spacing:.05em; }
 
-    /* Partículas coração */
     .heart-particle { position:fixed; pointer-events:none; z-index:200; animation: floatUp 1.9s ease forwards; }
 
-    /* ==================================================
-       KEYFRAMES
-    ================================================== */
     @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:none} }
     @keyframes pulse  { 0%,100%{transform:scale(1)} 50%{transform:scale(1.18)} }
     @keyframes floatUp {
@@ -217,49 +214,37 @@
 </head>
 <body>
 
-<!-- Fundo de estrelas animado -->
 <canvas id="starsCanvas"></canvas>
 
-<!-- ==================================================
-  INTRO OVERLAY
-  ⭐ PERSONALIZE: troque "Seu Nome Aqui" pelo nome dela/dele
-================================================== -->
 <div id="intro">
   <p class="i-eyebrow">Uma surpresa especial para...</p>
-
-  <!-- ⭐ TROQUE pelo nome da sua parceira/parceiro -->
   <h1 class="i-name">RENATINHA</h1>
-
   <p class="i-sub">no nosso Dia dos Namorados</p>
   <span class="i-heart">❤️</span>
   <button class="i-btn" id="btnAbrir">Abrir sua surpresa ❤️</button>
   <p class="i-date">12 de Junho de 2026 · Dia dos Namorados</p>
 </div>
 
-<!-- ==================================================
-  CONTEÚDO PRINCIPAL (aparece após clicar)
-================================================== -->
 <div id="main">
 
   <!-- ─── HERO ────────────────────────────────── -->
   <div id="hero">
     <p class="h-label r">Nossa história de amor</p>
-
-    <!-- ⭐ Troque pelo seu texto favorito -->
     <h2 class="h-title r d1">Cada momento<br><em>ao seu lado</em><br>é meu lugar favorito</h2>
-
     <div class="h-line r d2"></div>
-
-    <!-- ⭐ Troque pela sua mensagem de abertura -->
     <p class="h-msg r d3">
       Preparei essa página com todo o amor do mundo pra te mostrar o quanto você significa pra mim. Aqui estão as nossas histórias, os nossos momentos, a nossa vida.
     </p>
 
-    <!-- Contador automático de tempo juntos -->
+    <!-- Contador em tempo real -->
     <div class="counter r d4">
       <div class="cnt"><span class="cnt-n" id="cntY">0</span><span class="cnt-l">Anos</span></div>
       <div class="cnt"><span class="cnt-n" id="cntM">0</span><span class="cnt-l">Meses</span></div>
       <div class="cnt"><span class="cnt-n" id="cntD">0</span><span class="cnt-l">Dias</span></div>
+      <span class="cnt-sep">·</span>
+      <div class="cnt"><span class="cnt-n" id="cntH">00</span><span class="cnt-l">Horas</span></div>
+      <div class="cnt"><span class="cnt-n" id="cntMin">00</span><span class="cnt-l">Minutos</span></div>
+      <div class="cnt"><span class="cnt-n" id="cntS">00</span><span class="cnt-l">Segundos</span></div>
     </div>
   </div>
 
@@ -270,20 +255,14 @@
 
     <div class="timeline">
 
-      <!-- ⭐ EDITE cada bloco com as datas e histórias reais de vocês.
-           Para adicionar foto: troque o div.tl-ph por:
-           <img src="suafoto.jpg" class="tl-img" alt="Descrição"> -->
-
-      <!-- MOMENTO 1 -->
       <div class="tl-item r">
-        <p class="tl-date"> 9 de Junho de 2023</p><!-- ⭐ ex: "Dezembro de 2023" -->
-        <h3 class="tl-title">O dia que tudo começou</h3><!-- ⭐ -->
+        <p class="tl-date">9 de Junho de 2023</p>
+        <h3 class="tl-title">O dia que tudo começou</h3>
         <p class="tl-desc">Lembro até hoje do exato momento em que eu estava indo pro rodeio e coloquei no instagram "partiu rodeio" recebi sua resposta "👀".
         Todo bobo fiquei, mas estava feliz, ao te encontrar e te ver pela primeira vez, sabia que algo viria pela frente, mas não imaginava que estava frente à frente com o amor da minha vida, demos uma leve passeada até que decedi dar o primeiro passe pro gol "e o beijinho, rola?"
-        Toda sem graça ela ficou, mas eu sabia que ali nós dois estavam afim de marcar o gol, e assim aconteceu a noite que nunca vou esquecer, a noite onde encontrei a peça que faltava encaixar em mim, a minha outra metade...</p><!-- ⭐ -->
+        Toda sem graça ela ficou, mas eu sabia que ali nós dois estavam afim de marcar o gol, e assim aconteceu a noite que nunca vou esquecer, a noite onde encontrei a peça que faltava encaixar em mim, a minha outra metade...</p>
       </div>
 
-      <!-- MOMENTO 2 -->
       <div class="tl-item r d1">
         <p class="tl-date">Setembro de 2023</p>
         <h3 class="tl-title">Seu aniversário de 18 anos</h3>
@@ -293,20 +272,16 @@
         <img src="suafoto.jpg" class="tl-img" alt="Descrição">
       </div>
 
-      <!-- MOMENTO 3 -->
       <div class="tl-item r d2">
         <p class="tl-date">2024</p>
         <h3 class="tl-title">O Ano de desafios e aventuras</h3>
-        <p class="tl-desc">2024 foi o ano em que passei a pior fase da minha vida, e você estava lá, me vendo de pé, sem deixar meu coração fraquejar, vazio, pois você preenchia e cuidava das minhas dores, 
+        <p class="tl-desc">2024 foi o ano em que passei a pior fase da minha vida, e você estava lá, me vendo de pé, sem deixar meu coração fraquejar, vazio, pois você preenchia e cuidava das minhas dores,
         até mesmo pra você que recém tinha chegado na família. Havia sido um tempo dificíl, ver uma pessoa que tanto se ama passar por um momento tão rígido. Mas também houve imensos momentos bons,
-          lembra de quando você raspou meu cabelo, imaginamos que era uma loucura, mas eu precisava tanto passa por isso, e acredito que nos acostumamos, e quando viajamos pela primeira vez juntos a gramado, esse dia
-          foi espetacular, havendo momentos em que rimos e festejamos, ano em que você se formou, rodeios, e até mesmo quando passamos a trabalhar juntos no Tex.
-        
-        </p>
+        lembra de quando você raspou meu cabelo, imaginamos que era uma loucura, mas eu precisava tanto passa por isso, e acredito que nos acostumamos, e quando viajamos pela primeira vez juntos a gramado, esse dia
+        foi espetacular, havendo momentos em que rimos e festejamos, ano em que você se formou, rodeios, e até mesmo quando passamos a trabalhar juntos no Tex.</p>
         <img src="suafoto.jpg" class="tl-img" alt="Descrição">
       </div>
 
-      <!-- MOMENTO 4 — copie esse bloco pra adicionar mais! -->
       <div class="tl-item r d3">
         <p class="tl-date">2025</p>
         <h3 class="tl-title">A virada ❤️</h3>
@@ -324,36 +299,31 @@
     <span class="eyebrow r">Momentos capturados</span>
     <h2 class="section-title r d1">Nossa<br>Galeria</h2>
 
-    <!-- ⭐ Para adicionar suas fotos, dentro de cada .g-item troque o
-         div.g-placeholder por: <img src="foto.jpg" alt="Descrição">
-         e mantenha o div.g-caption com a legenda.              -->
     <div class="gallery r d2">
-
       <div class="g-item">
-        <img src="foto.jpg" alt="Descrição">
+        <img src="foto.jpg" alt="Conhecendo os meus sogros">
         <div class="g-caption">Conhecendo os meus sogros</div>
       </div>
       <div class="g-item">
-        <img src="foto.jpg" alt="Descrição">
+        <img src="foto.jpg" alt="Meu aniversário de 18">
         <div class="g-caption">Meu aniversário de 18</div>
       </div>
       <div class="g-item">
-        <img src="foto.jpg" alt="Descrição">
+        <img src="foto.jpg" alt="Passeio à Gramado">
         <div class="g-caption">Passeio à Gramado</div>
       </div>
       <div class="g-item">
-        <img src="foto.jpg" alt="Descrição">
+        <img src="foto.jpg" alt="Arena do Grêmio">
         <div class="g-caption">Arena do Grêmio</div>
       </div>
       <div class="g-item">
-        <img src="foto.jpg" alt="Descrição">
+        <img src="foto.jpg" alt="Uruguai">
         <div class="g-caption">Uruguai</div>
       </div>
       <div class="g-item">
-        <img src="foto.jpg" alt="Descrição">
+        <img src="foto.jpg" alt="Garopaba">
         <div class="g-caption">Garopaba</div>
       </div>
-
     </div>
   </div>
 
@@ -363,17 +333,15 @@
       <span class="carta-icon r">❤️</span>
       <span class="carta-label r d1">Do fundo do meu coração</span>
 
-      <!-- ⭐ Troque pelo seu texto. Pode ser tão longo quanto quiser. -->
       <p class="carta-text r d2">
         "Renata, meu amor,
 
 Hoje, no Dia dos Namorados, eu penso em nós, desde aquele início discreto no Twitter, lá em 2022. A gente se conheceu só pelas palavras, pelo ritmo das conversas, até que, um ano depois, o rodeio, com suas luzes e poeira, nos reuniu novamente. Em Terra de Areia, eu vi no teu olhar uma esperança, e com um emoji 👀 respondendo meu "partiu rodeio", um simples toque, você reacendeu meu mundo.
 O beijo daquela noite foi o começo de uma jornada. E você, com sua coragem, tem enfrentado não só o nosso amor, mas também os desafios do dia a dia. Seus problemas familiares, sua ansiedade, cada lágrima, cada medo. E, mesmo assim, você se mantém forte. Você, com seu carinho, me fez enxergar que, mesmo nas noites mais escuras, o amor se fortalece.  Eu estou aqui, meu amor, ao teu lado, segurando tua mão quando você mais precisa. Você me ensinou que o amor é estar presente, mesmo quando o mundo pesa, você é a pessoa mais incrível que eu já conheci. E eu me orgulho tanto de ti.
-Cada sorriso teu, cada gargalhada, me ensina a valorizar o que é simples. Você é minha paz, meu porto seguro, minha Momoi. Não importa o carro, o status, o lugar, porque você me faz sentir que cada instante é um presente. Você mudou minha vida, me fez ser um homem melhor. E o que eu sonho, ao seu lado, é viver cada dia, com Deus no coração, construindo nosso futuro. Três, cinco filhos, viagens, uma vida de plenitude.
-Obrigado por ser quem você é, por me dar amor, por me dar força. Te amo, minha princesa, minha Momoi, hoje e sempre."
+Cada sorriso teu, cada gargalhada, me ensina a valorizar o que é simples. Você é minha paz, meu porto seguro, minha Momoi. Não importa o carro, o status, o lugar, porque você me faz sentir que cada instante é um presente. Você mudou minha vida, me fez ser um homem melhor. E o que eu sonho, ao seu lado, é viver cada dia, com Deus no coração, construindo nosso futuro. Uma penca de filho, viagens, uma vida de muita prosperidade.
+Obrigado por ser quem você é, por me dar amor, por me dar força. Te amo, minha princesa, minha momoi, hoje e sempre."
       </p>
 
-      <!-- ⭐ Troque pelo seu nome -->
       <p class="carta-sign r d3">Com todo o meu amor, Bruno ❤️</p>
     </div>
   </div>
@@ -387,19 +355,11 @@ Obrigado por ser quem você é, por me dar amor, por me dar força. Te amo, minh
 
 </div><!-- /#main -->
 
-<!-- ==================================================
-  SCRIPT
-================================================== -->
 <script>
 // ====================================================
-// ⭐ CONFIGURAÇÃO — PERSONALIZE AQUI
+// DATA DE INÍCIO DO RELACIONAMENTO — 9 de Junho de 2023
 // ====================================================
-
-// Data de início do relacionamento
-// Formato: new Date(ANO, MES-1, DIA)
-// Mês é 0-indexado: 0=Jan 1=Fev 2=Mar 3=Abr 4=Mai 5=Jun
-//                    6=Jul 7=Ago 8=Set 9=Out 10=Nov 11=Dez
-const INICIO = new Date(2023, 11, 1); // ⭐ ex: 1 de Dezembro de 2023
+const INICIO = new Date(2023, 5, 9); // mês é 0-indexado: 5 = Junho
 
 // ====================================================
 // CANVAS DE ESTRELAS
@@ -487,19 +447,32 @@ function burstHearts() {
 }
 
 // ====================================================
-// CONTADOR DE TEMPO JUNTOS
+// CONTADOR EM TEMPO REAL — atualiza a cada segundo
 // ====================================================
 function updateCounter() {
-  const diff      = Date.now() - INICIO.getTime();
-  const totalDays = Math.floor(diff / 86400000);
-  const years     = Math.floor(totalDays / 365.25);
-  const months    = Math.floor((totalDays % 365.25) / 30.44);
-  const days      = Math.floor(totalDays % 30.44);
-  document.getElementById('cntY').textContent = years;
-  document.getElementById('cntM').textContent = months;
-  document.getElementById('cntD').textContent = days;
+  const diff       = Date.now() - INICIO.getTime();
+  const totalSec   = Math.floor(diff / 1000);
+  const totalMin   = Math.floor(totalSec  / 60);
+  const totalHours = Math.floor(totalMin  / 60);
+  const totalDays  = Math.floor(totalHours / 24);
+
+  const years  = Math.floor(totalDays / 365.25);
+  const months = Math.floor((totalDays % 365.25) / 30.44);
+  const days   = Math.floor(totalDays % 30.44);
+  const hours  = totalHours % 24;
+  const mins   = totalMin   % 60;
+  const secs   = totalSec   % 60;
+
+  document.getElementById('cntY').textContent   = years;
+  document.getElementById('cntM').textContent   = months;
+  document.getElementById('cntD').textContent   = days;
+  document.getElementById('cntH').textContent   = String(hours).padStart(2, '0');
+  document.getElementById('cntMin').textContent = String(mins).padStart(2, '0');
+  document.getElementById('cntS').textContent   = String(secs).padStart(2, '0');
 }
+
 updateCounter();
+setInterval(updateCounter, 1000);
 
 // ====================================================
 // SCROLL REVEAL (Intersection Observer)
